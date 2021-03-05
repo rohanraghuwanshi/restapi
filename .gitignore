@@ -1,2 +1,4 @@
 .env
 app/migrations
+app/__pycache__
+restapi/__pycache__
