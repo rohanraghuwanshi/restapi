@@ -4,3 +4,4 @@ app/__pycache__
 restapi/__pycache__
 app/models.py
 db.sqlite3
+app/api/__pycache__
