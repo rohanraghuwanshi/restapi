@@ -39,3 +39,9 @@ class StatusDetailAPIView(generics.RetrieveAPIView):
     authentication_classes = []
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
+
+class StatusUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = []
+    authentication_classes = []
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
