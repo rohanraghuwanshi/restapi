@@ -37,20 +37,26 @@ class StatusListSearchAPIView(mixins.CreateModelMixin, generics.ListAPIView):
 #     queryset = Status.objects.all()
 #     serializer_class = StatusSerializer
 
-class StatusDetailAPIView(generics.RetrieveAPIView):
+class StatusDetailAPIView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.RetrieveAPIView):
     permission_classes = []
     authentication_classes = []
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
+        
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
-class StatusUpdateAPIView(generics.UpdateAPIView):
-    permission_classes = []
-    authentication_classes = []
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
-class StatusDeleteAPIView(generics.DestroyAPIView):
-    permission_classes = []
-    authentication_classes = []
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
+# class StatusUpdateAPIView(generics.UpdateAPIView):
+#     permission_classes = []
+#     authentication_classes = []
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer
+
+# class StatusDeleteAPIView(generics.DestroyAPIView):
+#     permission_classes = []
+#     authentication_classes = []
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer
