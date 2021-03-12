@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.response import Response
 
 from app.models import Status
@@ -14,7 +14,7 @@ class StatusListAPIView(APIView):
         serialzer = StatusSerializer(qs, many=True)
         return Response(serialzer.data)
 
-class StatusListSearchAPIView(generics.ListAPIView):
+class StatusListSearchAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     permission_classes = []
     authentication_classes = []
     serializer_class = StatusSerializer
@@ -27,12 +27,15 @@ class StatusListSearchAPIView(generics.ListAPIView):
             qs = qs.filter(content__icontains=query)
 
         return qs 
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
-class StatusCreateAPIView(generics.CreateAPIView):
-    permission_classes = []
-    authentication_classes = []
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
+# class StatusCreateAPIView(generics.CreateAPIView):
+#     permission_classes = []
+#     authentication_classes = []
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer
 
 class StatusDetailAPIView(generics.RetrieveAPIView):
     permission_classes = []
