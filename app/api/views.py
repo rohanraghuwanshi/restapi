@@ -37,6 +37,10 @@ class StatusListSearchAPIView(mixins.CreateModelMixin, generics.ListAPIView):
 #     queryset = Status.objects.all()
 #     serializer_class = StatusSerializer
 
+
+# Alternative way to perform all the above three operations with a single view is
+# by giving in the class as generics.RetrieveUpdate,DeleteAPIView
+# Instead of giving all 3 classes.
 class StatusDetailAPIView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.RetrieveAPIView):
     permission_classes = []
     authentication_classes = []
@@ -48,6 +52,8 @@ class StatusDetailAPIView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, gen
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
 
 # class StatusUpdateAPIView(generics.UpdateAPIView):
 #     permission_classes = []
