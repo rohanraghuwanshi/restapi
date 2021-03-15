@@ -7,6 +7,25 @@ from django.shortcuts import get_object_or_404
 from app.models import Status
 from .serializers import StatusSerializer
 
+class StatusDetailAPIView(
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.RetrieveAPIView
+):
+    permission_classes = []
+    authentication_classes = []
+    serializer_class = StatusSerializer
+    queryset = Status.objects.all()    
+
+    def put(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
 class StatusAPIView(
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
@@ -48,14 +67,6 @@ class StatusAPIView(
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
 
 
 # class StatusListSearchAPIView(mixins.CreateModelMixin, generics.ListAPIView):
